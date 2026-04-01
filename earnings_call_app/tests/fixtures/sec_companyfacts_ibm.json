@@ -1,0 +1,42 @@
+{
+  "facts": {
+    "us-gaap": {
+      "Revenues": {
+        "units": {
+          "USD": [
+            {
+              "end": "2024-03-31",
+              "val": 14500,
+              "form": "10-Q",
+              "filed": "2024-05-03"
+            }
+          ]
+        }
+      },
+      "NetIncomeLoss": {
+        "units": {
+          "USD": [
+            {
+              "end": "2024-03-31",
+              "val": 1600,
+              "form": "10-Q",
+              "filed": "2024-05-03"
+            }
+          ]
+        }
+      },
+      "EarningsPerShareDiluted": {
+        "units": {
+          "USD/shares": [
+            {
+              "end": "2024-03-31",
+              "val": 1.72,
+              "form": "10-Q",
+              "filed": "2024-05-03"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

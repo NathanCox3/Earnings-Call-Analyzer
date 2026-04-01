@@ -1,0 +1,13 @@
+node_modules/
+.env
+.env.*
+.linkedin-outreach-bot/
+linkedin-bot.config.json
+.slack-chat-bot/
+__pycache__/
+.pytest_cache/
+.venv/
+streamlit-earnings*.log
+cloudflared-earnings*.log
+Barbell Learning Srategy.env
+Barbell Learning Srategy.env.txt

@@ -1,0 +1,31 @@
+{
+  "symbol": "IBM",
+  "quarter": "2024Q1",
+  "transcript": [
+    {
+      "speaker": "Olympia McNerney",
+      "title": "Global Head of Investor Relations",
+      "content": "Welcome to IBM's first quarter 2024 earnings presentation. We will review our quarter and then move to guidance and Q&A."
+    },
+    {
+      "speaker": "Arvind Krishna",
+      "title": "Chairman and Chief Executive Officer",
+      "content": "Demand for AI and hybrid cloud remained healthy. We expect to deliver revenue growth and continue to execute against our full-year outlook."
+    },
+    {
+      "speaker": "Jim Kavanaugh",
+      "title": "Senior Vice President and Chief Financial Officer",
+      "content": "Margins benefited from software mix and productivity. We remain mindful of macro pressure in some consulting decisions."
+    },
+    {
+      "speaker": "Operator",
+      "title": null,
+      "content": "We will now begin the question-and-answer session. Our first question comes from Amit Daryanani."
+    },
+    {
+      "speaker": "Amit Daryanani",
+      "title": "Evercore ISI",
+      "content": "Can you comment on the demand outlook and whether macro uncertainty changes your second-half guidance?"
+    }
+  ]
+}
