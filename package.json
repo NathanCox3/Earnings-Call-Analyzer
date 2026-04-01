@@ -1,0 +1,28 @@
+{
+  "scripts": {
+    "linkedin-bot:login": "node --env-file-if-exists=.env ./src/linkedin-outreach-bot/cli.mjs login",
+    "linkedin-bot:discover": "node --env-file-if-exists=.env ./src/linkedin-outreach-bot/cli.mjs discover",
+    "linkedin-bot:followups": "node --env-file-if-exists=.env ./src/linkedin-outreach-bot/cli.mjs followups",
+    "linkedin-bot:run": "node --env-file-if-exists=.env ./src/linkedin-outreach-bot/cli.mjs run",
+    "slack-bot:doctor": "node --env-file-if-exists=.env ./src/slack-chat-bot/cli.mjs doctor",
+    "slack-bot:start": "node --env-file-if-exists=.env ./src/slack-chat-bot/cli.mjs start",
+    "barbell-app:start": "node --env-file-if-exists=.env ./src/barbell-learning-app/server.mjs",
+    "social-app:start": "node --env-file-if-exists=.env ./src/social-scene-app/server.mjs",
+    "barbell-app:test": "node --test ./src/barbell-learning-app/recommender.test.mjs",
+    "social-app:test": "node --test ./src/social-scene-app/discovery.test.mjs",
+    "launch-app:start": "node --env-file-if-exists=.env ./src/earth-launch-tracker/server.mjs",
+    "launch-app:migrate": "node --env-file-if-exists=.env ./src/earth-launch-tracker/migrate.mjs",
+    "launch-app:sync:upcoming": "node --env-file-if-exists=.env ./src/earth-launch-tracker/sync-cli.mjs upcoming",
+    "launch-app:sync:backfill": "node --env-file-if-exists=.env ./src/earth-launch-tracker/sync-cli.mjs backfill",
+    "launch-app:export:static": "node --env-file-if-exists=.env ./scripts/export-launch-tracker-static.mjs",
+    "launch-app:test": "node --test ./src/earth-launch-tracker/*.test.mjs",
+    "test": "node --test ./src/barbell-learning-app/recommender.test.mjs ./src/social-scene-app/discovery.test.mjs ./src/earth-launch-tracker/*.test.mjs"
+  },
+  "dependencies": {
+    "@slack/bolt": "^4.6.0",
+    "nodemailer": "^8.0.4",
+    "openai": "^6.33.0",
+    "playwright": "^1.58.2",
+    "postgres": "^3.4.8"
+  }
+}

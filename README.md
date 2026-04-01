@@ -1,80 +1,65 @@
-# Earnings Call Analyzer
+# Earth Launch Tracker
 
-A Streamlit app for reading and comparing earnings calls using free data sources. It pulls transcript and earnings context from Alpha Vantage, verifies filings with SEC EDGAR when available, and produces a concise sentiment summary with a 0 to 10 score where 0 is most bearish and 10 is most bullish.
+A lightweight Node/Vercel app for browsing past and upcoming rocket launches from Earth across agencies, countries, and private launch providers. It stores normalized launch data in Postgres, keeps upcoming launches fresh with a resumable sync pipeline, and shows countdowns plus livestream or replay links when structured source metadata is available.
 
-## What It Does
+## What It Ships
 
-- Analyzes one ticker and quarter at a time.
-- Extracts prepared remarks, Q&A, themes, guidance, risks, and key quotes.
-- Renders a sentiment score, sentiment label, and rationale.
-- Shows a 4-quarter trend dashboard so you can compare the latest call against recent history.
-- Exports JSON and Markdown reports.
+- `Upcoming` and `Past` launch views with second-by-second countdowns for exact T-0 times.
+- Filters for launch organization, launch-site country, and launch location.
+- Best-effort livestream recognition from Launch Library 2 `vid_urls` metadata.
+- Resumable sync scripts for one-time historical backfill and recurring upcoming refreshes.
+- A scheduled GitHub Actions workflow that refreshes upcoming launches every 30 minutes.
 
-## Modes
+## Stack
 
-- `Demo`: bundled offline sample data for testing the UI without API access.
-- `Free Data Only`: Alpha Vantage transcript and earnings data plus SEC verification and local heuristic analysis.
-- `Free Data + OpenAI`: adds an optional OpenAI narrative synthesis layer on top of the free data pipeline.
+- Node.js ESM
+- Native `fetch`
+- `postgres` for managed Postgres access
+- Vercel-compatible API routing
+- Static no-build frontend
+- Launch Library 2 as the canonical launch source
 
-## Tech Stack
+## Environment
 
-- Python
-- Streamlit
-- Alpha Vantage API
-- SEC EDGAR API
-- OpenAI API, optional
-- Pydantic
-
-## Setup
-
-1. Install dependencies:
-
-```powershell
-pip install -r requirements.txt
-```
-
-2. Create a `.env` file in the project root with your keys:
+Copy `.env.example` to `.env` and configure:
 
 ```env
-ALPHA_VANTAGE_API_KEY=your_alpha_vantage_key
-OPENAI_API_KEY=your_openai_key_optional
-EARNINGS_OPENAI_MODEL=gpt-5-mini
-SEC_USER_AGENT=your-app-name/1.0 your-email@example.com
+DATABASE_URL=your_managed_postgres_connection_string
+LAUNCH_SYNC_SECRET=choose_a_long_random_secret
+LAUNCH_LIBRARY_API_BASE=https://ll.thespacedevs.com/2.0.0
+LAUNCH_LIBRARY_PAGE_SIZE=100
+LAUNCH_SYNC_MAX_REQUESTS_PER_HOUR=15
+LAUNCH_UPCOMING_STALE_MS=900000
+LAUNCH_SYNC_LOCK_TTL_MS=600000
 ```
 
-If you do not want to use OpenAI, you can leave `OPENAI_API_KEY` out entirely.
-
-## Run Locally
+## Local Commands
 
 ```powershell
-python -m streamlit run earnings_call_app/app.py --server.port 8502
+npm install
+npm run launch-app:migrate
+npm run launch-app:sync:upcoming
+npm run launch-app:start
 ```
 
-Then open:
+For the first full history import, run:
 
-- `http://127.0.0.1:8502`
+```powershell
+npm run launch-app:sync:backfill
+```
 
-## Project Structure
+Then open `http://localhost:3001`.
 
-- `earnings_call_app/app.py`: Streamlit UI and report rendering.
-- `earnings_call_app/alpha_vantage.py`: Alpha Vantage data retrieval and retry logic.
-- `earnings_call_app/sec.py`: SEC filing verification.
-- `earnings_call_app/analysis.py`: transcript parsing, heuristic sentiment scoring, trend logic, and optional OpenAI synthesis.
-- `earnings_call_app/demo_data.py`: offline demo report data.
-- `earnings_call_app/models.py`: shared data models.
-- `earnings_call_app/reporting.py`: JSON and Markdown export helpers.
-- `earnings_call_app/tests`: automated tests.
+## API
 
-## Notes
+- `GET /api/launches?timeline=upcoming|past&page=1&pageSize=24&organization=<id>&country=<code>&location=<id>`
+- `GET /api/filters`
+- `POST /api/admin/sync`
 
-- The sentiment score is a heuristic summary of call tone, not investment advice.
-- Alpha Vantage free-tier access can be rate-limited, so the app caches and retries where it can.
-- SEC verification depends on a valid `SEC_USER_AGENT`.
-- If live data is unavailable, the app can fall back to bundled demo content so the UI stays usable.
+The admin sync route requires `Authorization: Bearer <LAUNCH_SYNC_SECRET>`.
 
 ## Testing
 
 ```powershell
-python -m pytest earnings_call_app/tests -q
+npm test
 ```
-

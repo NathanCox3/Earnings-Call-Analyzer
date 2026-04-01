@@ -7,6 +7,7 @@ linkedin-bot.config.json
 __pycache__/
 .pytest_cache/
 .venv/
+.launch-tracker-data.json
 streamlit-earnings*.log
 cloudflared-earnings*.log
 Barbell Learning Srategy.env

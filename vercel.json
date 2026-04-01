@@ -1,0 +1,43 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "functions": {
+    "api/index.mjs": {
+      "includeFiles": "src/earth-launch-tracker/public/**",
+      "maxDuration": 60
+    }
+  },
+  "rewrites": [
+    {
+      "source": "/",
+      "destination": "/api/index?__pathname=/"
+    },
+    {
+      "source": "/index.html",
+      "destination": "/api/index?__pathname=/index.html"
+    },
+    {
+      "source": "/app.js",
+      "destination": "/api/index?__pathname=/app.js"
+    },
+    {
+      "source": "/view-model.js",
+      "destination": "/api/index?__pathname=/view-model.js"
+    },
+    {
+      "source": "/styles.css",
+      "destination": "/api/index?__pathname=/styles.css"
+    },
+    {
+      "source": "/api/launches",
+      "destination": "/api/index?__pathname=/api/launches"
+    },
+    {
+      "source": "/api/filters",
+      "destination": "/api/index?__pathname=/api/filters"
+    },
+    {
+      "source": "/api/admin/sync",
+      "destination": "/api/index?__pathname=/api/admin/sync"
+    }
+  ]
+}
